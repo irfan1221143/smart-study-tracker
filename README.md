@@ -31,9 +31,9 @@ This project focuses on simplicity, usability, and practical learning, making it
 ## 📂 Project Structure
 
 smart-study-tracker/
-│── main.py
-│── study_data.json (auto-created after first run)
+│── smart-study-tracker.py
 │── README.md
+│── statement.md
 
 ---
 
