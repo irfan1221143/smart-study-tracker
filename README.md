@@ -23,6 +23,5 @@ Ensure you have the following installed on your system:
 
 ### 2. Installation
 Clone the repository and navigate to the project directory:
-```bash
 git clone [https://github.com/irfan1221143/smart-study-tracker.git](https://github.com/irfan1221143/smart-study-tracker.git)
 cd smart-study-tracker
