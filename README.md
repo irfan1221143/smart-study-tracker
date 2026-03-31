@@ -1,27 +1,45 @@
-# Smart Study Tracker 📚
-**Digital Literacy Portfolio: Student Digital Ambassador Project**
+# Smart Study Tracker CLI
 
-## 📌 Project Overview
-The **Smart Study Tracker** is a comprehensive tool designed to help students optimize their academic productivity. It combines task management with focus-enhancing tools to ensure efficient study sessions and deadline tracking.
-
-### Key Features
-* **Customizable Study Timers:** Integrated Pomodoro-style timers for focused intervals.
-* **Task Management:** Add, organize, and prioritize academic assignments.
-* **Progress Analytics:** Review study habits and history to improve routines.
-* **Offline Support:** Full functionality without an active internet connection.
+**A simple command-line based Python project to track daily study sessions and understand study habits over time.
+This project was built as part of a learning exercise to practice basic programming concepts like file handling, functions, loops, and user input in Python.**
 
 ---
 
-## 🛠️ Technical Setup & Execution
-Follow these steps to set up and run the project locally via the command line.
+## 📌 About the Project
 
-### 1. Prerequisites
-Ensure you have the following installed on your system:
-* Python 3.9+
-* A modern web browser (Chrome, Firefox, or Edge)
-* Git
+Sometimes it's hard to stay consistent while studying. This tool helps in tracking how much time is being spent on different subjects and 
+how focused the sessions are.
+It stores all the study sessions locally and gives basic insights based on the data entered.
 
-### 2. Installation
-Clone the repository and navigate to the project directory:  
-git clone: [(https://github.com/irfan1221143/smart-study-tracker.git)](https://github.com/irfan1221143/smart-study-tracker.git)]  
-cd smart-study-tracker
+---
+
+## ⚙️ Features
+
+- Add a new study session  
+- Track time spent on different subjects  
+- View total study time and number of sessions  
+- Check recent study history  
+- Get simple productivity suggestions  
+- Stores data in a JSON file  
+
+---
+
+## 🛠️ Technologies Used
+
+- Python (Core)
+- JSON (for data storage)
+- Command Line Interface (CLI)
+
+---
+
+## ▶️ How to Run the Project
+
+1. Make sure Python is installed on your system  
+
+2. Download or clone this repository:  
+       https://github.com/irfan1221143/smart-study-tracker
+
+3. Open terminal in the project folder  
+
+4. Run the program:  
+   Python [View main.py](main.py)
