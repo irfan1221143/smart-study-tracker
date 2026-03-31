@@ -1,6 +1,5 @@
 # Smart Study Tracker CLI
-# A beginner-friendly but UNIQUE project
-# Tracks study sessions, analyzes productivity, and gives suggestions
+# Made for tracking daily study habits in a simple way
 
 import json
 import os
@@ -8,97 +7,179 @@ from datetime import datetime
 
 DATA_FILE = "study_data.json"
 
-# Load data
+
+# loading previous data if exists
 def load_data():
     if not os.path.exists(DATA_FILE):
         return []
-    with open(DATA_FILE, "r") as f:
-        return json.load(f)
+    try:
+        with open(DATA_FILE, "r") as f:
+            return json.load(f)
+    except:
+        # if file gets corrupted somehow
+        print("Data file issue, starting fresh...")
+        return []
 
-# Save data
+
+# saving everything back
 def save_data(data):
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-# Add study session
-def add_session():
-    subject = input("Enter subject: ")
-    duration = int(input("Enter duration (minutes): "))
-    mood = input("How was your focus? (good/average/bad): ")
 
-    session = {
-        "subject": subject,
-        "duration": duration,
+# taking duration but making sure user doesn't mess up input
+def take_duration():
+    while True:
+        val = input("Duration (in minutes): ").strip()
+        if val.isdigit():
+            val = int(val)
+            if val > 0:
+                return val
+        print("Enter a valid number bro...")
+
+
+# simple mood input (keeping it limited for analysis)
+def take_mood():
+    while True:
+        mood = input("Focus level (good/average/bad): ").lower().strip()
+        if mood in ["good", "average", "bad"]:
+            return mood
+        print("Only good / average / bad allowed.")
+
+
+# adding one study session
+def add_session():
+    sub = input("Subject name: ").strip()
+
+    if sub == "":
+        print("Subject can't be empty.\n")
+        return
+
+    dur = take_duration()
+    mood = take_mood()
+
+    entry = {
+        "subject": sub,
+        "duration": dur,
         "mood": mood,
-        "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        "time": datetime.now().strftime("%d-%m-%Y %H:%M")
     }
 
     data = load_data()
-    data.append(session)
+    data.append(entry)
     save_data(data)
 
-    print("Session added successfully!\n")
+    print("Saved 👍\n")
 
-# View stats
-def view_stats():
+
+# showing stats (basic but useful)
+def show_stats():
+    data = load_data()
+
+    if len(data) == 0:
+        print("No sessions yet.\n")
+        return
+
+    total = 0
+    subject_map = {}
+
+    for d in data:
+        total += d["duration"]
+
+        if d["subject"] not in subject_map:
+            subject_map[d["subject"]] = 0
+
+        subject_map[d["subject"]] += d["duration"]
+
+    print("\n--- Stats ---")
+    print("Total time:", total, "minutes")
+    print("Sessions:", len(data))
+
+    print("Per subject:")
+    for s in subject_map:
+        print(s, "->", subject_map[s], "min")
+
+    print()
+
+
+# last few entries (helps to quickly check)
+def recent():
     data = load_data()
 
     if not data:
-        print("No data available.")
+        print("Nothing to show.\n")
         return
 
-    total_time = sum(session["duration"] for session in data)
-    subjects = {}
+    print("\nLast sessions:")
+    for d in data[-5:]:
+        print(d["subject"], "|", d["duration"], "min |", d["mood"], "|", d["time"])
+    print()
 
-    for session in data:
-        subjects[session["subject"]] = subjects.get(session["subject"], 0) + session["duration"]
 
-    print("\nTotal Study Time:", total_time, "minutes")
-    print("Time per subject:")
-
-    for sub, time in subjects.items():
-        print(f"  {sub}: {time} minutes")
-
-# Productivity suggestion
-def suggestions():
+# this part is intentionally simple (not over-smart)
+def suggest():
     data = load_data()
 
     if not data:
-        print("No data available.")
+        print("No data for suggestion.\n")
         return
 
-    good = sum(1 for s in data if s["mood"] == "good")
-    bad = sum(1 for s in data if s["mood"] == "bad")
+    good = 0
+    bad = 0
+    total = 0
 
-    print("\nProductivity Insight:")
+    for d in data:
+        total += d["duration"]
+        if d["mood"] == "good":
+            good += 1
+        elif d["mood"] == "bad":
+            bad += 1
 
+    avg = total / len(data)
+
+    print("\nSuggestion:")
+
+    # based on focus
     if bad > good:
-        print("You seem distracted often. Try shorter sessions (25 min - Pomodoro).")
+        print("Focus seems low recently. Maybe reduce distractions.")
     else:
-        print("Good consistency! Try increasing duration gradually.")
+        print("You're doing fine, keep consistency.")
 
-# Main menu
+    # based on time
+    if avg < 30:
+        print("Try increasing session time a bit.")
+    elif avg > 90:
+        print("Sessions are long, take breaks in between.")
+    else:
+        print("Study time looks balanced.")
+
+    print()
+
+
 def main():
     while True:
-        print("\n--- Smart Study Tracker ---")
-        print("1. Add Study Session")
-        print("2. View Stats")
-        print("3. Get Suggestions")
-        print("4. Exit")
+        print("=== Study Tracker ===")
+        print("1. Add")
+        print("2. Stats")
+        print("3. Recent")
+        print("4. Suggestion")
+        print("5. Exit")
 
-        choice = input("Enter choice: ")
+        ch = input("Choice: ").strip()
 
-        if choice == "1":
+        if ch == "1":
             add_session()
-        elif choice == "2":
-            view_stats()
-        elif choice == "3":
-            suggestions()
-        elif choice == "4":
-            print("Goodbye!")
+        elif ch == "2":
+            show_stats()
+        elif ch == "3":
+            recent()
+        elif ch == "4":
+            suggest()
+        elif ch == "5":
             break
         else:
-            print("Invalid choice")
+            print("Wrong input\n")
+
 
 if __name__ == "__main__":
     main()
