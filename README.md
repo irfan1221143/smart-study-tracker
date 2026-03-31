@@ -62,3 +62,38 @@ It stores all the study sessions locally and gives basic insights based on the d
 ---
 
 ## 💡 Example
+=== Study Tracker ===  
+Add  
+Stats  
+Recent  
+Suggestion  
+Exit  
+
+---
+
+## ⚠️ Notes
+
+- This is a beginner-level project, so the logic is kept simple
+- Data is stored locally (no database used)
+- If the JSON file gets corrupted, the program starts fresh
+
+---
+
+## 📈 Future Improvements (Optional Ideas)
+
+- Add delete/edit session feature  
+- Export data as CSV  
+- Add weekly/monthly analysis  
+- Improve suggestion system  
+
+---
+
+## 👨‍💻 Author
+
+Created as part of a BYOP (Bring Your Own Project) submission for coursework.  
+Name - Irfan Alam Ansari  
+Reg. No. - 25BAI11088  
+Branch - CSE (AI&ML)  
+2025-29  
+
+---
