@@ -43,3 +43,22 @@ It stores all the study sessions locally and gives basic insights based on the d
 
 4. Run the program:  
    Python [View main.py](main.py)
+
+---
+
+## 🧠 How It Works
+
+- When a user adds a session, the data is saved in a file called `study_data.json`
+- Each session includes:
+- Subject
+- Duration (in minutes)
+- Focus level (good / average / bad)
+- Timestamp
+- The program reads this data and calculates:
+- Total study time
+- Subject-wise distribution
+- Basic productivity suggestions
+
+---
+
+## 💡 Example
